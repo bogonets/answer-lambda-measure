@@ -1,21 +1,17 @@
 {
     "info": {
-        "name": "estimator_per_time",
+        "name": "measure_per_time",
+        "script_path": "measure_per_time.py",
         "version": "1.0.0",
-        "category": "estimator",
+        "category": "measure",
         "keywords": [
-            "estimtor"
+            "measure"
         ],
         "homepage": "https://answer.bogonets.com/",
         "bugs": "https://answer.bogonets.com/",
         "license": "Bogonet License",
         "author": "wooruang",
-        "dependencies": [
-            {
-                "type": "pip",
-                "src": "numpy"
-            }
-        ],
+        "dependencies": [],
         "engines": ">=1.0.2",
         "environment": {},
         "titles": {
