@@ -1,11 +1,11 @@
 {
     "info": {
-        "name": "estimator_fps",
-        "script_path": "estimator_fps.py",
+        "name": "measure_fps",
+        "script_path": "measure_fps.py",
         "version": "1.0.0",
-        "category": "estimator",
+        "category": "measure",
         "keywords": [
-            "estimtor"
+            "measure"
         ],
         "homepage": "https://answer.bogonets.com/",
         "bugs": "https://answer.bogonets.com/",
