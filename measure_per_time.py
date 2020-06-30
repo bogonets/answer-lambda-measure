@@ -3,6 +3,7 @@
 import numpy as np
 import time
 import sys
+from datetime import datetime
 
 
 maximum_sec = 0
@@ -58,7 +59,9 @@ def on_init():
     return initialize_variables()
 
 
-def on_run(array):
+def on_run(input):
+    # sys.stdout.write(f"[measure_per_time.on_run] input1: {input}\n")
+    # sys.stdout.flush()
 
     # current_time.
     cur_t = time.time()
@@ -66,23 +69,47 @@ def on_run(array):
     if not check_valid_props():
         sys.stderr.write(
             "[measure_per_time.on_run] states is empty. Because props is invalid value.\n")
-        return
+        return {}
 
+    # sys.stdout.write(f"[measure_per_time.on_run] input2: {input}\n")
+    # sys.stdout.flush()
     remove_expired(cur_t)
 
-    if array.size != 0:
-        update_cache(array)
+    # sys.stdout.write(f"[measure_per_time.on_run] input3: {input}\n")
+    # sys.stdout.flush()
+    if len(input) != 0:
+        update_cache(input)
         add_new_time(cur_t)
-
+    # sys.stdout.write(f"[measure_per_time.on_run] input4: {input}\n")
+    # sys.stdout.flush()
     measure_state(cur_t)
-
+    # sys.stdout.write(f"[measure_per_time.on_run] input5: {input}\n")
+    # sys.stdout.flush()
     alarms = measure_alarm(cur_t)
-    if not alarms:
-        return
+
+    # sys.stdout.write(f"[measure_per_time.on_run] alarms6: {alarms}\n")
+    # sys.stdout.flush()
+    if len(alarms) == 0:
+        return {}
+
+    # sys.stdout.write(f"[measure_per_time.on_run] input7: {input}\n")
+    # sys.stdout.flush()
+
+    # now = datetime.now()
+    # dt = now.strftime("%m/%d/%Y, %H:%M:%S")
+    # sys.stdout.write(f"[measure_per_time.on_run] time: {dt}\n")
+    # sys.stdout.flush()
+
+    # sys.stdout.write(f"[measure_per_time.on_run] result: {cache_input}\n")
+    # sys.stdout.write(f"[measure_per_time.on_run] labels: {alarms}\n")
+    # sys.stdout.write(f"[measure_per_time.on_run] result's lables: {[labels[x] for x in alarms]}\n")
+    # sys.stdout.flush()
+
+    alarm_labels = np.zeros([len(alarms), len(max(labels))], dtype=np.uint8)
 
     return {
         'result': cache_input,
-        'labels': np.array(alarms)
+        'labels': alarm_labels
     }
 
 

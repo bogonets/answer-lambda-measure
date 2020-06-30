@@ -28,7 +28,8 @@ def run():
     remove_old(cur_t)
 
 
-def on_run(array):
+def on_run(input):
     run()
-
-    return {'fps': np.array([get_fps()])}
+    # sys.stdout.write(f"[measure_fps.on_run] FPS : {get_fps()}")
+    # sys.stdout.flush()
+    return {'fps': str(get_fps())}

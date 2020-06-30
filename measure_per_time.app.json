@@ -28,7 +28,7 @@
     },
     "controls": {
         "input": "input",
-        "output": ["condition", "result"]
+        "output": ["result", "labels"]
     },
     "props": [
         {
