@@ -28,16 +28,24 @@ def on_set(k, v):
     if k == PROPS_NAME_SECONDS:
         global seconds
         global maximum_sec
+        sys.stdout.write(f"[measure_per_time.on_set] {k}: {v}\n")
+        sys.stdout.flush()
         seconds = [int(i) for i in v.split(',')]
         maximum_sec = max(seconds)
     elif k == PROPS_NAME_LABELS:
         global labels
+        sys.stdout.write(f"[measure_per_time.on_set] {k}: {v}\n")
+        sys.stdout.flush()
         labels = v.split(',')
     elif k == PROPS_NAME_MEASURE_COUNT:
         global measure_counts
+        sys.stdout.write(f"[measure_per_time.on_set] {k}: {v}\n")
+        sys.stdout.flush()
         measure_counts = [int(i) for i in v.split(',')]
     elif k == PROPS_NAME_ALARM_INTERVAL_SECONDS:
         global alarm_interval_seconds
+        sys.stdout.write(f"[measure_per_time.on_set] {k}: {v}\n")
+        sys.stdout.flush()
         alarm_interval_seconds = [int(i) for i in v.split(',')]
 
 
@@ -67,7 +75,11 @@ def on_run(input):
     # else:
     #     sys.stdout.write(f"[measure_per_time.on_run] input.shape False: {input.shape}\n")
     # sys.stdout.write(f"[measure_per_time.on_run] input type1: {type(input)}\n")
-    # sys.stdout.flush()
+    sys.stdout.write(f"[measure_per_time.on_run] labels: {labels}\n")
+    sys.stdout.write(f"[measure_per_time.on_run] seconds: {seconds}\n")
+    sys.stdout.write(f"[measure_per_time.on_run] measure_counts: {measure_counts}\n")
+    sys.stdout.write(f"[measure_per_time.on_run] alarm_interval_seconds: {alarm_interval_seconds}\n")
+    sys.stdout.flush()
 
     # current_time.
     cur_t = time.time()

@@ -65,7 +65,7 @@
         },
         {
             "rule": "read_and_write",
-            "name": "estimation_counts",
+            "name": "measure_counts",
             "default_value": "1",
             "type": "list",
             "required": true,
@@ -81,7 +81,7 @@
         },
         {
             "rule": "read_and_write",
-            "name": "interval_sec",
+            "name": "alarm_interval_seconds",
             "default_value": "1",
             "type": "list",
             "required": true,
