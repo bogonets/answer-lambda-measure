@@ -61,6 +61,12 @@ def on_init():
 
 def on_run(input):
     # sys.stdout.write(f"[measure_per_time.on_run] input1: {input}\n")
+    # sys.stdout.write(f"[measure_per_time.on_run] input.shape1: {input.shape}\n")
+    # if input.shape:
+    #     sys.stdout.write(f"[measure_per_time.on_run] input.shape True: {input.shape}\n")
+    # else:
+    #     sys.stdout.write(f"[measure_per_time.on_run] input.shape False: {input.shape}\n")
+    # sys.stdout.write(f"[measure_per_time.on_run] input type1: {type(input)}\n")
     # sys.stdout.flush()
 
     # current_time.
@@ -77,18 +83,18 @@ def on_run(input):
 
     # sys.stdout.write(f"[measure_per_time.on_run] input3: {input}\n")
     # sys.stdout.flush()
-    if len(input) != 0:
+    if input.shape:
         update_cache(input)
         add_new_time(cur_t)
     # sys.stdout.write(f"[measure_per_time.on_run] input4: {input}\n")
     # sys.stdout.flush()
     measure_state(cur_t)
-    # sys.stdout.write(f"[measure_per_time.on_run] input5: {input}\n")
-    # sys.stdout.flush()
+    sys.stdout.write(f"[measure_per_time.on_run] input5: {input}\n")
+    sys.stdout.flush()
     alarms = measure_alarm(cur_t)
 
-    # sys.stdout.write(f"[measure_per_time.on_run] alarms6: {alarms}\n")
-    # sys.stdout.flush()
+    sys.stdout.write(f"[measure_per_time.on_run] alarms6: {alarms}\n")
+    sys.stdout.flush()
     if len(alarms) == 0:
         return {}
 
@@ -105,12 +111,16 @@ def on_run(input):
     # sys.stdout.write(f"[measure_per_time.on_run] result's lables: {[labels[x] for x in alarms]}\n")
     # sys.stdout.flush()
 
-    alarm_labels = np.zeros([len(alarms), len(max(labels))], dtype=np.uint8)
+    # alarm_labels = np.zeros([len(alarms), len(max(labels))], dtype=np.uint8)
+    alarm_labels = ','.join([labels[x] for x in alarms])
 
-    return {
-        'result': cache_input,
-        'labels': alarm_labels
-    }
+    if alarm_labels:
+        return {
+            'result': cache_input,
+            'labels': alarm_labels
+        }
+    else:
+        return {}
 
 
 def on_destroy():
