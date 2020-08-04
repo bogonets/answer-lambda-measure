@@ -75,11 +75,11 @@ def on_run(input):
     # else:
     #     sys.stdout.write(f"[measure_per_time.on_run] input.shape False: {input.shape}\n")
     # sys.stdout.write(f"[measure_per_time.on_run] input type1: {type(input)}\n")
-    sys.stdout.write(f"[measure_per_time.on_run] labels: {labels}\n")
-    sys.stdout.write(f"[measure_per_time.on_run] seconds: {seconds}\n")
-    sys.stdout.write(f"[measure_per_time.on_run] measure_counts: {measure_counts}\n")
-    sys.stdout.write(f"[measure_per_time.on_run] alarm_interval_seconds: {alarm_interval_seconds}\n")
-    sys.stdout.flush()
+    # sys.stdout.write(f"[measure_per_time.on_run] labels: {labels}\n")
+    # sys.stdout.write(f"[measure_per_time.on_run] seconds: {seconds}\n")
+    # sys.stdout.write(f"[measure_per_time.on_run] measure_counts: {measure_counts}\n")
+    # sys.stdout.write(f"[measure_per_time.on_run] alarm_interval_seconds: {alarm_interval_seconds}\n")
+    # sys.stdout.flush()
 
     # current_time.
     cur_t = time.time()
@@ -87,6 +87,7 @@ def on_run(input):
     if not check_valid_props():
         sys.stderr.write(
             "[measure_per_time.on_run] states is empty. Because props is invalid value.\n")
+        sys.stderr.flush()
         return {}
 
     # sys.stdout.write(f"[measure_per_time.on_run] input2: {input}\n")
@@ -101,12 +102,12 @@ def on_run(input):
     # sys.stdout.write(f"[measure_per_time.on_run] input4: {input}\n")
     # sys.stdout.flush()
     measure_state(cur_t)
-    sys.stdout.write(f"[measure_per_time.on_run] input5: {input}\n")
-    sys.stdout.flush()
+    # sys.stdout.write(f"[measure_per_time.on_run] input5: {input}\n")
+    # sys.stdout.flush()
     alarms = measure_alarm(cur_t)
 
-    sys.stdout.write(f"[measure_per_time.on_run] alarms6: {alarms}\n")
-    sys.stdout.flush()
+    # sys.stdout.write(f"[measure_per_time.on_run] alarms6: {alarms}\n")
+    # sys.stdout.flush()
     if len(alarms) == 0:
         return {}
 
