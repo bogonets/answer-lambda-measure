@@ -1,0 +1,99 @@
+{
+    "info": {
+        "name": "measure_per_time_adaptive",
+        "script_path": "measure_per_time.py",
+        "version": "1.0.0",
+        "category": "measure",
+        "keywords": [
+            "measure"
+        ],
+        "homepage": "https://answer.bogonets.com/",
+        "bugs": "https://answer.bogonets.com/",
+        "license": "Bogonet License",
+        "author": "wooruang",
+        "dependencies": [],
+        "engines": ">=1.0.2",
+        "environment": {},
+        "titles": {
+            "en": "Adaptive estimator by time",
+            "ko": "적응형 시계열 측정"
+        },
+        "descriptions": {
+            "en": "Estimate inputs per time",
+            "ko": "입력이 일정 단위 동안 들어오는지 측정한다."
+        },
+        "documentation_mime": "text",
+        "documentations": {},
+        "meta": {}
+    },
+    "controls": {
+        "input": "input",
+        "output": ["condition", "result"]
+    },
+    "props": [
+        {
+            "rule": "read_and_write",
+            "name": "seconds",
+            "default_value": "1",
+            "type": "list",
+            "required": true,
+            "valid": {},
+            "title": {
+                "en": "Seconds",
+                "ko": "기준 초"
+            },
+            "help": {
+                "en": "",
+                "ko": ""
+            }
+        },
+        {
+            "rule": "read_and_write",
+            "name": "labels",
+            "default_value": "Occur1",
+            "type": "list",
+            "required": true,
+            "valid": {},
+            "title": {
+                "en": "Esitmation labels",
+                "ko": "측정 라벨"
+            },
+            "help": {
+                "en": "",
+                "ko": ""
+            }
+        },
+        {
+            "rule": "read_and_write",
+            "name": "estimation_counts",
+            "default_value": "1",
+            "type": "list",
+            "required": true,
+            "valid": {},
+            "title": {
+                "en": "Ratio of inputs per time",
+                "ko": "기준 초 동안 입력 비율"
+            },
+            "help": {
+                "en": "",
+                "ko": ""
+            }
+        },
+        {
+            "rule": "read_and_write",
+            "name": "interval_sec",
+            "default_value": "1",
+            "type": "list",
+            "required": true,
+            "valid": {},
+            "title": {
+                "en": "Interval seconds",
+                "ko": "결과 출력 주기(초)"
+            },
+            "help": {
+                "en": "",
+                "ko": ""
+            }
+        }
+    ]
+}
