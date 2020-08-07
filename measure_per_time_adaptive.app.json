@@ -1,7 +1,6 @@
 {
     "info": {
         "name": "measure_per_time_adaptive",
-        "script_path": "measure_per_time.py",
         "version": "1.0.0",
         "category": "measure",
         "keywords": [
@@ -27,8 +26,8 @@
         "meta": {}
     },
     "controls": {
-        "input": "input",
-        "output": ["condition", "result"]
+        "input": ["array", "fps"],
+        "output": ["result", "labels"]
     },
     "props": [
         {
@@ -65,8 +64,8 @@
         },
         {
             "rule": "read_and_write",
-            "name": "estimation_counts",
-            "default_value": "1",
+            "name": "measure_ratio",
+            "default_value": "0.5",
             "type": "list",
             "required": true,
             "valid": {},
@@ -81,7 +80,7 @@
         },
         {
             "rule": "read_and_write",
-            "name": "interval_sec",
+            "name": "alarm_interval_seconds",
             "default_value": "1",
             "type": "list",
             "required": true,

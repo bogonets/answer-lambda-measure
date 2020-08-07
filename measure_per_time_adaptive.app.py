@@ -38,7 +38,7 @@ def on_set(k, v):
         labels = v.split(',')
     elif k == PROPS_NAME_MEASURE_COUNT:
         global measure_counts
-        measure_counts = [int(i) for i in v.split(',')]
+        measure_counts = [float(i) for i in v.split(',')]
     elif k == PROPS_NAME_ALARM_INTERVAL_SECONDS:
         global alarm_interval_seconds
         alarm_interval_seconds = [int(i) for i in v.split(',')]
@@ -64,10 +64,12 @@ def on_init():
 
 def on_run(array, fps):
 
-    if remove_expired_fps(FPS_EXPIRED_COUNT):
-        return {}
+    # sys.stdout.write(f"[measure_adaptive_run] array : {array}\n")
+    # sys.stdout.flush()
 
     add_fps(fps)
+    if not remove_expired_fps(FPS_EXPIRED_COUNT):
+        return {}
     mean_fps = get_mean_fps()
 
     # current_time.
@@ -81,20 +83,28 @@ def on_run(array, fps):
 
     remove_expired(cur_t)
 
-    if array.size != 0:
+    # Check input is not empty.
+    if array.shape:
+        # sys.stdout.write("[measure_per_time_adaptive.on_run] input!!")
+        # sys.stdout.flush()
+
         update_cache(array)
         add_new_time(cur_t)
 
-    measure_state(cur_t)
+    measure_state(cur_t, mean_fps)
 
     alarms = measure_alarm(cur_t)
-    if not alarms:
+    if len(alarms) == 0:
         return {}
+    alarm_labels = ','.join([labels[x] for x in alarms])
 
-    return {
-        'result': cache_input,
-        'labels': np.array(alarms)
-    }
+    if alarm_labels:
+        return {
+            'result': cache_input,
+            'labels': alarm_labels
+        }
+    else:
+        return {}
 
 
 def on_destroy():
@@ -199,6 +209,9 @@ def remove_expired_fps(expired_count):
     global input_fps
     for i in range(len(input_fps) - 10):
         input_fps.pop(0)
+    # sys.stdout.write(f"[measure_per_time_adaptive.remove_expired_fps] input_fps len : {len(input_fps)}\n")
+    # sys.stdout.write(f"[measure_per_time_adaptive.remove_expired_fps] expired_count : {expired_count}\n")
+    # sys.stdout.flush()
     return len(input_fps) == expired_count
 
 
