@@ -64,10 +64,16 @@ def on_init():
 
 def on_run(array, fps):
 
-    # sys.stdout.write(f"[measure_adaptive_run] array : {array}\n")
-    # sys.stdout.flush()
+    # sys.stderr.write(f"[measure_adaptive_run] array : {array}\n")
+    # sys.stderr.write(f"[measure_adaptive_run] array.shape : {array.shape}\n")
+    # sys.stderr.write(f"[measure_adaptive_run] fps : {fps}\n")
+    # sys.stderr.flush()
 
-    add_fps(fps)
+    fps_value = int(''.join([chr(x) for x in fps]))
+    # sys.stderr.write(f"[measure_adaptive_run] fps_value : {fps_value} / {type(fps_value)}\n")
+    # sys.stderr.flush()
+
+    add_fps(fps_value)
     if not remove_expired_fps(FPS_EXPIRED_COUNT):
         return {}
     mean_fps = get_mean_fps()
@@ -98,6 +104,9 @@ def on_run(array, fps):
         return {}
     alarm_labels = ','.join([labels[x] for x in alarms])
 
+
+    # sys.stderr.write(f"[measure_adaptive.on_run] alarm_labels : {alarm_labels}.\n")
+    # sys.stderr.flush()
     if alarm_labels:
         return {
             'result': cache_input,
@@ -153,10 +162,12 @@ def is_active(current, sec, count):
 
 
 def active(idx):
+    global states
     states[idx] = True
 
 
 def deactive(idx):
+    global states
     states[idx] = False
     next_alarm_times[idx] = 0
     reset_cache()
