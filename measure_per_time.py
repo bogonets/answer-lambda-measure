@@ -97,6 +97,8 @@ def on_run(input):
     # sys.stdout.write(f"[measure_per_time.on_run] input3: {input}\n")
     # sys.stdout.flush()
     if input.shape:
+        # sys.stdout.write(f"[measure_per_time.on_run] input!!: {input}\n")
+        # sys.stdout.flush()
         update_cache(input)
         add_new_time(cur_t)
     # sys.stdout.write(f"[measure_per_time.on_run] input4: {input}\n")
@@ -126,6 +128,8 @@ def on_run(input):
 
     # alarm_labels = np.zeros([len(alarms), len(max(labels))], dtype=np.uint8)
     alarm_labels = ','.join([labels[x] for x in alarms])
+    #sys.stdout.write(f"[measure_per_time.on_run] result's lables: {alarm_labels}\n")
+    #sys.stdout.flush()
 
     if alarm_labels:
         return {
@@ -181,10 +185,12 @@ def is_active(current, sec, count):
 
 
 def active(idx):
+    global states
     states[idx] = True
 
 
 def deactive(idx):
+    global states
     states[idx] = False
     next_alarm_times[idx] = 0
     reset_cache()
