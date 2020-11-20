@@ -5,6 +5,8 @@ import time
 import sys
 
 
+TRUE_STR_LIST = ['true']
+
 maximum_sec = 0
 seconds = [1]
 labels = ['Occur1']
@@ -19,10 +21,13 @@ cache_input = None
 
 input_fps = []
 
+always_out = False
+
 PROPS_NAME_SECONDS = "seconds"
 PROPS_NAME_LABELS = "labels"
 PROPS_NAME_MEASURE_COUNT = "measure_ratio"
 PROPS_NAME_ALARM_INTERVAL_SECONDS = "alarm_interval_seconds"
+PROPS_NAME_ALWAYS_OUT = "always_out"
 
 FPS_EXPIRED_COUNT = 10
 
@@ -42,6 +47,9 @@ def on_set(k, v):
     elif k == PROPS_NAME_ALARM_INTERVAL_SECONDS:
         global alarm_interval_seconds
         alarm_interval_seconds = [int(i) for i in v.split(',')]
+    elif k == PROPS_NAME_ALWAYS_OUT:
+        global always_out
+        always_out = = True if v.lower() in TRUE_STR_LIST else False
 
 
 def on_get(k):
@@ -56,6 +64,8 @@ def on_get(k):
     elif k == PROPS_NAME_ALARM_INTERVAL_SECONDS:
         c = [str(i) for i in alarm_interval_seconds]
         return ','.join(c)
+    elif k == PROPS_NAME_ALWAYS_OUT:
+        return str(always_out)
 
 
 def on_init():
@@ -75,7 +85,7 @@ def on_run(array, fps):
 
     add_fps(fps_value)
     if not remove_expired_fps(FPS_EXPIRED_COUNT):
-        return {}
+        return returnValue()
     mean_fps = get_mean_fps()
 
     # current_time.
@@ -85,7 +95,7 @@ def on_run(array, fps):
         sys.stderr.write(
             "[measure_per_time.on_run] states is empty. Because props is invalid value.\n")
         sys.stderr.flush()
-        return {}
+        return returnValue()
 
     remove_expired(cur_t)
 
@@ -101,9 +111,8 @@ def on_run(array, fps):
 
     alarms = measure_alarm(cur_t)
     if len(alarms) == 0:
-        return {}
+        return returnValue()
     alarm_labels = ','.join([labels[x] for x in alarms])
-
 
     # sys.stderr.write(f"[measure_adaptive.on_run] alarm_labels : {alarm_labels}.\n")
     # sys.stderr.flush()
@@ -113,11 +122,21 @@ def on_run(array, fps):
             'labels': alarm_labels
         }
     else:
-        return {}
+        return returnValue()
 
 
 def on_destroy():
     return True
+
+
+def returnValue():
+    if always_out:
+        return {
+            'result': None,
+            'labels': None
+        }
+    else:
+        return {}
 
 
 def initialize_variables():
@@ -228,4 +247,3 @@ def remove_expired_fps(expired_count):
 
 def get_mean_fps():
     return sum(input_fps) / len(input_fps)
-

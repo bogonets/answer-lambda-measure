@@ -94,5 +94,22 @@
                 "ko": ""
             }
         }
+        ,
+        {
+            "rule": "read_and_write",
+            "name": "always_out",
+            "default_value": false,
+            "type": "bool",
+            "required": true,
+            "valid": {},
+            "title": {
+                "en": "Always out values",
+                "ko": "항상 결과 전달"
+            },
+            "help": {
+                "en": "",
+                "ko": ""
+            }
+        }
     ]
 }
