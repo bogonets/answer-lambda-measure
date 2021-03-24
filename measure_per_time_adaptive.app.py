@@ -49,7 +49,7 @@ def on_set(k, v):
         alarm_interval_seconds = [int(i) for i in v.split(',')]
     elif k == PROPS_NAME_ALWAYS_OUT:
         global always_out
-        always_out = = True if v.lower() in TRUE_STR_LIST else False
+        always_out = True if v.lower() in TRUE_STR_LIST else False
 
 
 def on_get(k):
